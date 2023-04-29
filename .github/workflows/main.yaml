@@ -1,0 +1,35 @@
+name: 'run-tests'
+#on: push
+
+jobs:
+  build:
+    runs-on: ubuntu
+    container:
+      image: consoleapp1-build-image
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Navigate to Workspace
+      run: cd $GITHUB_WORKSPACE
+
+    - name: Create Build Directory
+      run: mkdir _build
+      
+    - name: Restore Packages
+      run: |
+        cd ConsoleApp1
+        mono /usr/local/bin/nuget.exe restore ConsoleApp1.sln 
+
+    - name: Build Solution
+      run: |
+        cd ConsoleApp1
+        ls
+        xbuild ConsoleApp1.sln
+
+    - name: Run tests
+      run: |
+        cd ConsoleApp1
+        mono packages/NUnit.ConsoleRunner.3.16.3/tools/nunit3-console.exe ./bin/Debug/ConsoleApp1.exe
+
+        

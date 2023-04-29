@@ -1,0 +1,7 @@
+FROM ubuntu:latest
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update
+RUN apt-get -y install mono-complete curl
+RUN curl -o /usr/local/bin/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+
+
