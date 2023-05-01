@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'Dockerfile.test'
+  workflow_dispatch:
+
 
 jobs:
   docker-image-test:
