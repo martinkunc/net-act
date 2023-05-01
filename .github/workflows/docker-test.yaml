@@ -31,16 +31,16 @@ jobs:
         curl -o /usr/local/bin/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 
 
-
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile.test --tag consoleapp1-build-image:latest
-    
     - name: Log in to the Container registry
+      if:  env.LOCAL_RUN != null
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile.test --tag consoleapp1-build-image:latest
     
     - name: Extract metadata (tags, labels) for Docker
       id: meta
@@ -50,10 +50,11 @@ jobs:
           consoleapp1-build/consoleapp1-build-image
           ghcr.io/${{ github.repository }}
 
-    - name: Publish docker to github
-    # if:  env.LOCAL_RUN != null
+    # - name: Publish docker to github
+    #   if:  env.LOCAL_RUN != null
 
     - name: Build and push
+      if:  env.LOCAL_RUN != null
       uses: docker/build-push-action@v3
       with:
         context: .
