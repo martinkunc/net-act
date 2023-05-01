@@ -9,7 +9,7 @@ on:
 
 jobs:
   docker-image-test:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
