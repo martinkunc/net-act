@@ -34,8 +34,9 @@ Watch folder for changes and run tests continuously
 It looks like it doesn't work on windows well.
 
 ```
-act -w -j 'build'
+act -w -j 'build' --env LOCAL_RUN=true
 ```
+
 
 Result:
 <img src='assets/result.png'>

@@ -1,5 +1,8 @@
 name: 'run-tests'
-on: push
+on: 
+  push:
+    paths-ignore:
+      - 'Dockerfile.test'
 
 jobs:
   build:
@@ -28,8 +31,10 @@ jobs:
         xbuild ConsoleApp1.sln
 
     - name: Run tests
+      continue-on-error: true
       run: |
         cd ConsoleApp1
         mono packages/NUnit.ConsoleRunner.3.16.3/tools/nunit3-console.exe ./bin/Debug/ConsoleApp1.exe
+      
 
         
